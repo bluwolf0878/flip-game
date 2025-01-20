@@ -2,8 +2,8 @@ import styled from "styled-components";
 import cardback from "../../assets/img/cart-baground.jpg";
 
 export const CardWrapper = styled.div`
-  width: 100px;
-  height: 150px;
+  width: 150px;
+  height: 200px;
   perspective: 1000px;
 `;
 
@@ -24,6 +24,7 @@ export const CardFront = styled.div`
   height: 100%;
   backface-visibility: hidden; 
   background: ${(props) => `url(${props.src})`} no-repeat center/cover;
+  transform: rotateY(180deg); 
   border-radius: 10px;
   border: 2px solid black;
 `;
@@ -34,7 +35,6 @@ export const CardBack = styled.div`
   height: 100%;
   backface-visibility: hidden; 
   background: url(${cardback}) no-repeat center/cover; 
-  transform: rotateY(180deg); 
   border-radius: 10px;
   border: 2px solid black;
 `;

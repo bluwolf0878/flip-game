@@ -25,8 +25,6 @@ import img20 from "../../assets/img/img20.jpg";
 const shuffleCards = (cards) => {
   return cards.sort(() => Math.random() - 0.5);
 };
-
-export const Cart = () => {
   const allCards = [
     { id: 1, src: img1 },
     { id: 2, src: img2 },
@@ -52,43 +50,47 @@ export const Cart = () => {
 
  //kode der dubliker kort//
   const shuffledCards = shuffleCards([...allCards, ...allCards]);
+export const Cart = () => {
+
 //kode der der skal håndtere om det er matche og flipped//
   const [flippedCards, setFlippedCards] = useState([]);
   const [matchedCards, setMatchedCards] = useState([]);
 
   //kode der håntere om man kan clike på kort eller ej//
-  const handleCardClick = (id) => {
-    if (flippedCards.length === 2 || flippedCards.includes(id) || matchedCards.includes(id)) {
+  const handleCardClick = (index) => {
+    if (flippedCards.length === 2 || flippedCards.includes(index) || matchedCards.includes([index])) {
       return;
     }
 
-    setFlippedCards((prev) => [...prev, id]);
+    setFlippedCards((prev) => [...prev, index]);
   };
 
   
   //kode der kigger om kortne matcher//
   useEffect(() => {
     if (flippedCards.length === 2) {
-      const [firstId, secondId] = flippedCards;
-      const firstCard = shuffledCards.find((card) => card.id === firstId);
-      const secondCard = shuffledCards.find((card) => card.id === secondId);
-
-      if (firstCard.src === secondCard.src) {
-        setMatchedCards((prev) => [...prev, firstId, secondId]);
+      const [firstCard, secondCard] = flippedCards;
+      if (shuffledCards[firstCard].id === shuffledCards[secondCard].id){
+        console.log(shuffledCards[firstCard],shuffledCards[secondCard] );
+        
+        setMatchedCards((prev) => [...prev, firstCard, secondCard]);
+        console.log(matchedCards);
+        
       }
 
       setTimeout(() => {
         setFlippedCards([]);
       }, 1000);
     }
-  }, [flippedCards, shuffledCards]);
+  },[flippedCards] );
 
   return (
     <>
       {shuffledCards.map((card, index) => {
+        
           return(
-          <CardWrapper key={`${card.id}-${index}`} onClick={() => handleCardClick(card.id)}>
-          <CardInner $flipped={flippedCards.includes(card.id) || matchedCards.includes(card.id)}>
+          <CardWrapper key={index} onClick={() => handleCardClick(index)}>
+          <CardInner $flipped={flippedCards.includes(index) || matchedCards.includes(index)}>
             <CardFront src={card.src} />
             <CardBack />
           </CardInner>
