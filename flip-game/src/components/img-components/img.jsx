@@ -71,10 +71,8 @@ export const Cart = () => {
     if (flippedCards.length === 2) {
       const [firstCard, secondCard] = flippedCards;
       if (shuffledCards[firstCard].id === shuffledCards[secondCard].id){
-        console.log(shuffledCards[firstCard],shuffledCards[secondCard] );
         
         setMatchedCards((prev) => [...prev, firstCard, secondCard]);
-        console.log(matchedCards);
         
       }
 
